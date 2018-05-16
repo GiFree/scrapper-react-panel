@@ -10,17 +10,19 @@ class Search extends Component {
       picList: [],
     }
 
-    this.handleChange = (e) => {
-      fetch(`http://${window.location.hostname}:3001/list/${e.target.value}`)
-        .then((data) => data.json())
-        .then((list) => {
-          this.setState({ picList: list });
-        })
-        .catch((err) => {
-          console.log(err.message);
-        })
-    }
+    this.handleChange = this.handleChange.bind(this);
 
+  }
+
+  handleChange(e) {
+    fetch(`http://${window.location.hostname}:3001/list/${e.target.value}`)
+      .then((data) => data.json())
+      .then((list) => {
+        this.setState({ picList: list });
+      })
+      .catch((err) => {
+        console.log(err.message);
+      })
   }
 
   render() {

@@ -11,31 +11,35 @@ class PicSlideshow extends Component {
       currentPic: 1,
     }
 
-    this.plusSlides = () => {
+    this.plusSlides = this.plusSlides.bind(this);
+    this.minusSlides = this.minusSlides.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
 
-      if (this.state.currentPic === this.props.picList.length) {
-        this.setState({ currentPic: 1 });
-      } else {
-        this.setState({ currentPic: this.state.currentPic + 1 });
-      }
+  }
+
+  plusSlides() {
+
+    if (this.state.currentPic === this.props.picList.length) {
+      this.setState({ currentPic: 1 });
+    } else {
+      this.setState({ currentPic: this.state.currentPic + 1 });
     }
+  }
 
-    this.minusSlides = () => {
-      if (this.state.currentPic === 1) {
-        this.setState({ currentPic: this.props.picList.length });
-      } else {
-        this.setState({ currentPic: this.state.currentPic - 1 });
-      }
+  minusSlides() {
+    if (this.state.currentPic === 1) {
+      this.setState({ currentPic: this.props.picList.length });
+    } else {
+      this.setState({ currentPic: this.state.currentPic - 1 });
     }
+  }
 
-    this.handleKeyPress = (e) => {
-      if (e.keyCode === 39) {
-        this.plusSlides();
-      } else if (e.keyCode === 37) {
-        this.minusSlides();
-      }
+  handleKeyPress(e) {
+    if (e.keyCode === 39) {
+      this.plusSlides();
+    } else if (e.keyCode === 37) {
+      this.minusSlides();
     }
-
   }
 
   componentWillReceiveProps() {
@@ -57,6 +61,7 @@ class PicSlideshow extends Component {
         length: this.props.picList.length,
         link: `http://${window.location.hostname}:3001/${pic.category}/${pic.hash}.${pic.extension}`,
         id: index + 1,
+        href: pic.postLink,
         image: pic,
         index: index,
       };

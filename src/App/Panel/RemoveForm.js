@@ -9,30 +9,32 @@ class RemoveForm extends Component {
       message: ''
     }
 
-    this.handleSubmit = (e) => {
-      const childs = Array.from(e.target.children);
-      const data = {
-        category: childs[1].value,
-      }
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
-      fetch(`http://${window.location.hostname}:3001/delete`, {
-        method: 'post',
-        body: JSON.stringify(data),
-        headers: {
-          'content-type': 'application/json'
-        },
-        mode: 'cors',
-      })
-        .then((res) => {
-          this.setState({ message: res.message });
-        })
-        .catch((err) => {
-          this.setState({ message: err.message });
-        })
-
-      e.preventDefault();
-      return false;
+  handleSubmit(e) {
+    const childs = Array.from(e.target.children);
+    const data = {
+      category: childs[1].value,
     }
+
+    fetch(`http://${window.location.hostname}:3001/delete`, {
+      method: 'post',
+      body: JSON.stringify(data),
+      headers: {
+        'content-type': 'application/json'
+      },
+      mode: 'cors',
+    })
+      .then((res) => {
+        this.setState({ message: res.message });
+      })
+      .catch((err) => {
+        this.setState({ message: err.message });
+      })
+
+    e.preventDefault();
+    return false;
   }
 
   render() {

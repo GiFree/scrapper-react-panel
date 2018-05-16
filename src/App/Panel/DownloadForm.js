@@ -11,34 +11,39 @@ class DownloadForm extends Component {
       message: '',
     }
 
-    this.handleSubmit = (e) => {
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
-      const childs = Array.from(e.target.children);
-      const data = {
-        subReddit: childs[1].value,
-        numOfPages: childs[4].value
-      }
-      console.log(data);
-      fetch(`http://${window.location.hostname}:3001/download`, {
-        method: 'post',
-        body: JSON.stringify(data),
-        headers: {
-          'content-type': 'application/json'
-        },
-        mode: 'cors',
-      })
-        .then(res => res.json())
-        .then((response) => {
-          this.setState({ message: response.message });
-        })
-        .catch((err) => {
-          console.log(err);
-          this.setState({ message: err.message });
-        })
-
-      e.preventDefault();
-      return false;
+  handleSubmit(e) {
+    const childs = Array.from(e.target.children);
+    const data = {
+      subReddit: childs[1].value,
+      numOfImages: childs[4].value
     }
+
+    this.setState({
+      message: 'please wait'
+    })
+
+    fetch(`http://${window.location.hostname}:3001/download`, {
+      method: 'post',
+      body: JSON.stringify(data),
+      headers: {
+        'content-type': 'application/json'
+      },
+      mode: 'cors',
+    })
+      .then(res => res.json())
+      .then((response) => {
+        this.setState({ message: response.message });
+      })
+      .catch((err) => {
+        console.log(err);
+        this.setState({ message: err.message });
+      })
+
+    e.preventDefault();
+    return false;
   }
 
 
@@ -50,8 +55,8 @@ class DownloadForm extends Component {
           <label htmlFor="subreddit">SubReddit: </label>
           <input type="text" name="subreddit" id="subreddit" />
           <br />
-          <label htmlFor="numOfPages">Number Of Pages (max 10): </label>
-          <input type="number" name="numOfPages" id="numOfPages" min="1" max="10" />
+          <label htmlFor="numOfImages">Number Of Images : </label>
+          <input type="number" name="numOfImages" id="numOfImages" min="1" max="200" />
           <input type="submit" value="Start" />
         </form>
         <Message data={this.state.message} />
