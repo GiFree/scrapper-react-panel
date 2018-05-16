@@ -1,0 +1,9 @@
+.message {
+  margin: auto;
+  margin-top: 20px;
+  max-width: 50%;
+  border: solid #222 1px;
+  padding: 10px;
+  color: #700a0a;
+  font-size: 12px;
+}
