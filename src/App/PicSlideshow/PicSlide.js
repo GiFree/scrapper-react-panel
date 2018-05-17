@@ -8,7 +8,7 @@ class PicSlide extends Component {
     return (
       <div id={data.id} className="mySlides fade" style={data.style}>
         <div className="numbertext"> {data.id} / {data.length}</div>
-        <img src={data.link} alt="shit not working" />
+        <img src={data.link} alt="link expired" />
         <div className="text">
           <a href={data.href}>
             {data.image.title} - {data.image.category}
