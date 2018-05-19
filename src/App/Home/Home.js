@@ -12,9 +12,9 @@ class Main extends Component {
   componentWillMount() {
     fetch(`http://${window.location.hostname}:3001/list`)
       .then(data => data.json())
-      .then((list) => {
+      .then((res) => {
         this.setState({
-          picList: list,
+          picList: res.response,
         })
       })
       .catch((err) => {
